@@ -1,0 +1,36 @@
+<ng-container *ngIf="{
+    inProgress: inProgress$ | async,
+    loading: loading$ | async,
+    quizMode: quizMode$ | async
+} as state">
+
+    <div class="flex flex-column h-full">
+        <div class="flex-grow-1 flex flex-column align-items-center justify-content-center p-2">
+            <h1 class="title">Quiz</h1>
+            <div class="tagline">
+                A Quizmasters pocket full of questions
+            </div>
+        </div>
+
+        <div class="actions flex-grow-1 flex flex-column gap-2 p-2">
+            <ng-template [ngIf]="state.inProgress" [ngIfElse]="new">
+                <span class="p-buttonset flex w-full">
+                    <button (click)="onContinue()" pButton type="button" label="Continue"
+                        class="flex-grow-1 p-button-lg"></button>
+                    <button (click)="onRestart()" pButton type="button" label="Restart"
+                        class="flex-grow-1 p-button-warning p-button-lg"></button>
+                </span>
+            </ng-template>
+
+            <ng-template #new>
+                <button (click)="onPlay()" [loading]="state.loading!" iconPos="right" pButton type="button"
+                    [label]="'Play ' + state.quizMode!" class="p-button-lg"></button>
+            </ng-template>
+
+
+            <button (click)="onQuestionList()" pButton type="button" label="Question List"
+                class="p-button-outlined p-button-sm"></button>
+        </div>
+
+    </div>
+</ng-container>

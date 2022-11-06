@@ -1,0 +1,7 @@
+<ng-container *ngIf="{
+    remainingTime: remainingTime$ | async
+} as state">
+
+{{state.remainingTime!}}
+
+</ng-container>

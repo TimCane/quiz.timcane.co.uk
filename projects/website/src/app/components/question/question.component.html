@@ -1,0 +1,31 @@
+<div [@cardAnimator]="swipeDirection" (@cardAnimator.done)="resetAnimationState($event)"
+    (swipeleft)='startAnimation("swipeleft")' (swiperight)='startAnimation("swiperight")' class="overflow-hidden m-2 pb-2 h-full">
+    <div *ngIf="question"
+        class="flex flex-column h-full flex-grow-1 p-3 surface-card align-items-center justify-content-center"
+        (click)="onClick()">
+
+        <div class="flex flex-grow-1 align-items-center justify-content-center">
+            <div class="text text-center" *ngIf="view == QuizViewEnum.Question">
+                <div class="text-color-secondary pb-1 text-base">
+                    Question:
+                </div>
+                <div class="text-lg select-all">
+                    {{question.text}}?
+                </div>
+            </div>
+            <div class="answer text-center" *ngIf="view == QuizViewEnum.Answer">
+                <div class="text-color-secondary pb-1 text-base">
+                    Answer:
+                </div>
+                <div class="text-lg select-all">
+                    {{question.answer}}
+                </div>
+            </div>
+        </div>
+
+        <div class="text-color-secondary text-sm">
+            <span *ngIf="view == QuizViewEnum.Question"><i class="pi pi-eye"></i></span>
+            <span *ngIf="view == QuizViewEnum.Answer"><i class="pi pi-eye-slash"></i></span>
+        </div>
+    </div>
+</div>

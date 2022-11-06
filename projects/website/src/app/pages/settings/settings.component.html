@@ -1,0 +1,92 @@
+<ng-container *ngIf="{
+    themeOptions: themeOptions$ | async,
+    backgroundOptions: backgroundOptions$ | async,
+    selectedTheme: selectedTheme$ | async,
+    selectedBackground: selectedBackground$ | async,
+    quizMode: quizMode$ | async,
+    enduranceLives: enduranceLives$ | async,
+    timedSeconds: timedSeconds$ | async,
+    inProgress: inProgress$ | async
+} as state">
+
+    <div class="m-2">
+        <h2>Settings</h2>
+        <h4>Quiz Theme</h4>
+        <div class="field grid">
+            <label for="theme" class="col-fixed align-self-start" style="width:100px">Theme</label>
+            <div class="col">
+                <p-dropdown id="theme" [style]="{'minWidth':'100%'}" class="min-w-full w-full"
+                    [options]="state.themeOptions!" [(ngModel)]="state.selectedTheme!" optionLabel="label"
+                    (onChange)="onThemeChange($event)">
+                    <ng-template pTemplate="selectedItem">
+                        <div class="theme-item theme-item-value" *ngIf="state.selectedTheme">
+                            <i class="pi pi-circle-fill mr-2" [style.color]="state.selectedTheme.colour"></i>
+                            <span>{{state.selectedTheme.label}}</span>
+                        </div>
+                    </ng-template>
+                    <ng-template let-theme pTemplate="item">
+                        <div class="theme-item">
+                            <i class="pi pi-circle-fill mr-2" [style.color]="theme.colour"></i>
+                            <span>{{theme.label}}</span>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="field grid">
+            <label for="background" class="col-fixed align-self-start" style="width:100px">Background</label>
+            <div class="col">
+                <p-dropdown id="background" [style]="{'minWidth':'100%'}" class="min-w-full w-full"
+                    [options]="state.backgroundOptions!" [(ngModel)]="state.selectedBackground!" optionLabel="label"
+                    (onChange)="onBackgroundChange($event)">
+                    <ng-template pTemplate="selectedItem">
+                        <div class="background-item background-item-value" *ngIf="state.selectedBackground">
+                            <i class="pi pi-circle-fill mr-2" [style.color]="state.selectedBackground.colour"></i>
+                            <span>{{state.selectedBackground.label}}</span>
+                        </div>
+                    </ng-template>
+                    <ng-template let-background pTemplate="item">
+                        <div class="background-item">
+                            <i class="pi pi-circle-fill mr-2" [style.color]="background.colour"></i>
+                            <span>{{background.label}}</span>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+        <h3>Quiz <span class="text-red-600 text-sm" *ngIf="state.inProgress!">(in progress)</span></h3>
+        <h4>General</h4>
+        <div class="field grid">
+            <label for="quizmode" class="col-fixed align-self-start" style="width:100px">Mode</label>
+            <div class="col flex flex-column">
+                <p-radioButton *ngFor="let enum of QuizModeEnum | keyvalue" class="py-1" name="quizmode"
+                    [value]="enum.value" [label]="enum.key" [disabled]="isDisabled(enum.value)" [(ngModel)]="state.quizMode!"
+                    (onClick)="onQuizModeChange($event)"></p-radioButton>
+            </div>
+        </div>
+
+        <ng-container *ngIf="state.quizMode! == QuizModeEnum.Endurance">
+            <h4>Endurance</h4>
+            <div class="field grid align-items-center">
+                <label for="quizmode" class="col-fixed align-self-center" style="width:100px">Lives</label>
+                <div class="col flex w-full">
+                    <p-slider [disabled]="state.inProgress!" class="flex-grow-1 align-self-center" id="enduranceLives" [(ngModel)]="state.enduranceLives!"
+                        [min]="1" [max]="5" (onChange)="onEnduranceLivesChange($event)"></p-slider>
+                    <label class="px-5 align-self-center" for="enduranceLives">{{state.enduranceLives!}}</label>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="state.quizMode! == QuizModeEnum.Timed">
+            <h4>Timed</h4>
+            <div class="field grid align-items-center">
+                <label for="quizmode" class="col-fixed align-self-center" style="width:100px">Seconds</label>
+                <div class="col flex w-full">
+                    <p-slider [disabled]="state.inProgress!" class="flex-grow-1 align-self-center" id="timedSeconds" [(ngModel)]="state.timedSeconds!"
+                        [min]="30" [max]="300" [step]="30" (onChange)="onTimedSecondsChange($event)"></p-slider>
+                    <label class="px-5 align-self-center" for="timedSeconds">{{state.timedSeconds!}}</label>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</ng-container>

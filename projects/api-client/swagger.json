@@ -1,0 +1,178 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "OpenAPI Document on Azure Functions",
+    "description": "This is the OpenAPI Document on Azure Functions",
+    "version": "1.0.0"
+  },
+  "host": "localhost:7071",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/QuestionCount": {
+      "get": {
+        "tags": [
+          "Questions"
+        ],
+        "operationId": "QuestionCount",
+        "produces": [
+          "application/json",
+          "text/plain"
+        ],
+        "responses": {
+          "200": {
+            "description": "The OK response",
+            "schema": {
+              "$ref": "#/definitions/countOfQuestionsDto"
+            }
+          },
+          "204": {
+            "description": "No Content was returned.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/GetQuizQuestions": {
+      "get": {
+        "tags": [
+          "Questions"
+        ],
+        "operationId": "GetQuizQuestions",
+        "produces": [
+          "application/json",
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "size",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "sortField",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The OK response",
+            "schema": {
+              "$ref": "#/definitions/questionListDto"
+            }
+          },
+          "204": {
+            "description": "No Content was returned.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/GetRandomQuestion": {
+      "get": {
+        "tags": [
+          "Questions"
+        ],
+        "operationId": "GetRandomQuestion",
+        "produces": [
+          "application/json",
+          "text/plain"
+        ],
+        "responses": {
+          "200": {
+            "description": "The OK response",
+            "schema": {
+              "$ref": "#/definitions/questionDto"
+            }
+          },
+          "204": {
+            "description": "No Content was returned.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "countOfQuestionsDto": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "questionDto": {
+      "type": "object",
+      "properties": {
+        "answer": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "questionListDto": {
+      "type": "object",
+      "properties": {
+        "pageNumber": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pageSize": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/questionDto"
+          }
+        },
+        "sortField": {
+          "type": "string"
+        },
+        "sortOrder": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalRecords": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

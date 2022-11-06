@@ -1,0 +1,30 @@
+<ng-container *ngIf="{
+    currentQuestion: currentQuestion$ | async,
+    loading: loading$ | async,
+    index: index$ | async,
+    questionsCount: questionsCount$ | async
+} as state">
+
+    <div class="flex flex-column h-full" *ngIf="state.currentQuestion">
+        <div class="text-3xl font-semibold mx-2 align-self-center">
+            Question {{(state.index! + 1)}}
+        </div>
+
+        <app-question swipe (left)="onPreviousQuestion()" (right)="onNextQuestion()" [parentSubject]="parentSubject"
+            [question]="state.currentQuestion!"></app-question>
+
+        <div class="actions flex m-2">
+            <span class="p-buttonset flex w-full">
+                <button (click)="onPreviousQuestion()" pButton pRipple type="button" iconPos="left"
+                    [disabled]="state.loading" icon="pi pi-angle-double-left"
+                    class="flex-grow-1 p-button-lg p-button-secondary"></button>
+
+                <!--<button (click)="onQuestionFlagged($event)" pButton pRipple type="button" [disabled]="state.loading"
+                    icon="pi pi-flag-fill" class="p-button-lg p-button-danger"></button>-->
+
+                <button (click)="onNextQuestion()" pButton pRipple type="button" iconPos="right"
+                    [loading]="state.loading!" icon="pi pi-angle-double-right" class="flex-grow-1 p-button-lg"></button>
+            </span>
+        </div>
+    </div>
+</ng-container>

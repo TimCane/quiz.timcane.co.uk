@@ -1,0 +1,13 @@
+<ng-container *ngIf="{
+    quizMode: quizMode$ | async
+} as state">
+    <ng-container [ngSwitch]="state.quizMode!">
+        <app-endurance-results *ngSwitchCase="QuizModeEnum.Endurance"></app-endurance-results>
+    </ng-container>
+
+    <div class="action m-2 pb-2">
+        <button (click)="onMenu()" pButton type="button" label="Back to menu"
+        class="w-full p-button-lg"></button>
+    </div>
+
+</ng-container>

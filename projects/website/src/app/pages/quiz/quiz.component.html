@@ -1,0 +1,16 @@
+<ng-container *ngIf="{
+    quizMode: quizMode$ | async
+} as state">
+
+    <ng-container [ngSwitch]="state.quizMode!">
+        <app-casual-quiz *ngSwitchCase="QuizModeEnum.Casual"></app-casual-quiz>
+        <app-endurance-quiz *ngSwitchCase="QuizModeEnum.Endurance"></app-endurance-quiz>
+        <app-timed-quiz *ngSwitchCase="QuizModeEnum.Timed"></app-timed-quiz>
+    </ng-container>
+
+</ng-container>
+
+<p-confirmPopup></p-confirmPopup>
+<div class="mx-2">
+    <p-toast [breakpoints]="{'920px': {width: '100%'}}" position="top-center"></p-toast>
+</div>

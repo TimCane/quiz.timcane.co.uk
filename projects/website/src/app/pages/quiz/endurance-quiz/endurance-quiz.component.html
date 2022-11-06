@@ -1,0 +1,40 @@
+<ng-container *ngIf="{
+    currentQuestion: currentQuestion$ | async,
+    loading: loading$ | async,
+    index: index$ | async,
+    questionsCount: questionsCount$ | async,
+    remainingLives: remainingLives$ | async,
+    correctQuestionsCount: correctQuestionsCount$ | async
+} as state">
+
+    <div class="flex flex-column h-full" *ngIf="state.currentQuestion">
+        <div class="text-3xl font-semibold mx-2 flex justify-content-between">
+            <span class="text-left text-green-400 flex align-items-center justify-content-center gap-1">
+                <i class="pi pi-thumbs-up-fill"></i>
+                <span>
+                    {{state.correctQuestionsCount!}}
+                </span>
+            </span>
+            <span class="flex-grow-1 text-center">Question {{(state.index! + 1)}}</span>
+            <span class="text-right text-red-400 flex align-items-center justify-content-center gap-1">
+                <span>
+                    {{state.remainingLives!}}
+                </span>
+                <i class="pi pi-heart-fill"></i></span>
+        </div>
+
+        <app-question swipe (left)="onIncorrectAnswer()" (right)="onCorrectAnswer()" [parentSubject]="parentSubject"
+            [question]="state.currentQuestion!"></app-question>
+
+        <div class="actions flex m-2">
+            <span class="p-buttonset flex w-full">
+                <button (click)="onIncorrectAnswer()" pButton pRipple type="button" iconPos="left"
+                    [disabled]="state.loading" icon="pi pi-thumbs-down-fill"
+                    class="flex-grow-1 p-button-lg p-button-danger"></button>
+                <button (click)="onCorrectAnswer()" pButton pRipple type="button" iconPos="right"
+                    [disabled]="state.loading!" icon="pi pi-thumbs-up-fill"
+                    class="flex-grow-1 p-button-lg p-button-success"></button>
+            </span>
+        </div>
+    </div>
+</ng-container>

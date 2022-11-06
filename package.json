@@ -1,0 +1,50 @@
+{
+  "name": "quiz",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "build:stats": "ng build website --stats-json",
+    "analyze": "webpack-bundle-analyzer dist/website/stats.json",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "build-api": "ng b api-client",
+    "generate-api": "node ./projects/api-client/scripts/get-swagger-spec.js && nswag run ./projects/api-client/nswag.json /output:./projects/api-client/src/lib/api-client.service.ts /runtime:Net50",
+    "update-api": "npm run generate-api && npm run build-api"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^14.2.8",
+    "@angular/common": "^14.2.8",
+    "@angular/compiler": "^14.2.8",
+    "@angular/core": "^14.2.8",
+    "@angular/forms": "^14.2.8",
+    "@angular/platform-browser": "^14.2.8",
+    "@angular/platform-browser-dynamic": "^14.2.8",
+    "@angular/router": "^14.2.8",
+    "primeflex": "^3.2.1",
+    "primeicons": "^6.0.1",
+    "primeng": "^14.1.2",
+    "rxjs": "~7.4.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^14.2.7",
+    "@angular/cli": "^14.2.7",
+    "@angular/compiler-cli": "^14.2.8",
+    "@types/jasmine": "~3.10.0",
+    "@types/node": "^12.11.1",
+    "jasmine-core": "~3.10.0",
+    "karma": "~6.3.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.0.3",
+    "karma-jasmine": "~4.0.0",
+    "karma-jasmine-html-reporter": "~1.7.0",
+    "ng-packagr": "^14.2.2",
+    "nswag": "^13.14.2",
+    "typescript": "~4.8.4",
+    "webpack-bundle-analyzer": "^4.7.0"
+  }
+}

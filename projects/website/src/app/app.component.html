@@ -1,0 +1,19 @@
+<div class="flex flex-column h-screen">
+
+    <div class="mx-2 flex justify-content-between">
+        
+        <button (click)="onHelp()" pButton pRipple type="button" icon="pi pi-question-circle"
+            *ngIf="currentUrl != '/help'" class="p-button-text p-button-outlined"></button>
+        <button (click)="onHome()" pButton pRipple type="button" icon="pi pi-home" *ngIf="currentUrl != '/menu'"
+            class="p-button-text p-button-outlined"></button>
+
+            
+        <button (click)="onSettings()" pButton pRipple type="button" icon="pi pi-bars" *ngIf="currentUrl != '/settings'"
+            class="p-button-text p-button-outlined"></button>
+        <button (click)="onBack()" pButton pRipple type="button" icon="pi pi-arrow-left"
+            *ngIf="currentUrl == '/settings'" class="p-button-text p-button-outlined"></button>
+    </div>
+
+    <router-outlet></router-outlet>
+
+</div>

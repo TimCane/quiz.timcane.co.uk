@@ -1,0 +1,187 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "website": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/website",
+      "sourceRoot": "projects/website/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/website",
+            "index": "projects/website/src/index.html",
+            "main": "projects/website/src/main.ts",
+            "polyfills": "projects/website/src/polyfills.ts",
+            "tsConfig": "projects/website/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/website/src/favicon.ico",
+              "projects/website/src/assets"
+            ],
+            "styles": [
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "projects/website/src/styles.scss",
+              {
+                "bundleName": "theme-dark-blue",
+                "input": "node_modules/primeng/resources/themes/lara-dark-blue/theme.css",
+                "inject": false
+              },
+              {
+                "bundleName": "theme-dark-indigo",
+                "input": "node_modules/primeng/resources/themes/lara-dark-indigo/theme.css",
+                "inject": false
+              },
+              {
+                "bundleName": "theme-dark-purple",
+                "input": "node_modules/primeng/resources/themes/lara-dark-purple/theme.css",
+                "inject": false
+              },
+              {
+                "bundleName": "theme-dark-teal",
+                "input": "node_modules/primeng/resources/themes/lara-dark-teal/theme.css",
+                "inject": false
+              },
+              {
+                "bundleName": "theme-light-blue",
+                "input": "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+                "inject": false
+              },
+              {
+                "bundleName": "theme-light-indigo",
+                "input": "node_modules/primeng/resources/themes/lara-light-indigo/theme.css",
+                "inject": false
+              },
+              {
+                "bundleName": "theme-light-purple",
+                "input": "node_modules/primeng/resources/themes/lara-light-purple/theme.css",
+                "inject": false
+              },
+              {
+                "bundleName": "theme-light-teal",
+                "input": "node_modules/primeng/resources/themes/lara-light-teal/theme.css",
+                "inject": false
+              }
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/website/src/environments/environment.ts",
+                  "with": "projects/website/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "website:build:production"
+            },
+            "development": {
+              "browserTarget": "website:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "website:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/website/src/test.ts",
+            "polyfills": "projects/website/src/polyfills.ts",
+            "tsConfig": "projects/website/tsconfig.spec.json",
+            "karmaConfig": "projects/website/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/website/src/favicon.ico",
+              "projects/website/src/assets"
+            ],
+            "styles": [
+              "projects/website/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "api-client": {
+      "projectType": "library",
+      "root": "projects/api-client",
+      "sourceRoot": "projects/api-client/src",
+      "prefix": "api",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/api-client/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/api-client/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/api-client/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/api-client/src/test.ts",
+            "tsConfig": "projects/api-client/tsconfig.spec.json",
+            "karmaConfig": "projects/api-client/karma.conf.js"
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
+}
