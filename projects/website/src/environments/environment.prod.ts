@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiEndpoint: "http://localhost:7071/api"
+  apiEndpoint: "https://tc-quiz.azurewebsites.net/api"
 };
