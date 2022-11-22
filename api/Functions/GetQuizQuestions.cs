@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using AutoMapper;
@@ -41,7 +42,8 @@ namespace QuizAPI.Functions
     public async Task<HttpResponseData> Run(
       [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]
       HttpRequestData req,
-      FunctionContext context
+      FunctionContext context,
+      CancellationToken cancellationToken
     )
     {
       var log = context.GetLogger<GetQuizQuestions>();
@@ -99,7 +101,7 @@ namespace QuizAPI.Functions
       }
 
       var pagedData =
-        await _questionRepository.GetByPageAsync(size, page, sortField, sortOrder, context.CancellationToken);
+        await _questionRepository.GetByPageAsync(size, page, sortField, sortOrder, cancellationToken);
       if (pagedData == null || !pagedData.Any())
       {
         return req.CreateResponse(HttpStatusCode.NoContent);
